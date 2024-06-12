@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>1'den 99'a kadar olan sayıları for döngüsü ile yan yana</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ddd;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 50px;
+            color: #333;
+        }
+
+        .title {
+            display: block;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 18px;
+            color: #555;
+        }
+
+        #butonlar {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #sayilar {
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            gap: 10px;
+            padding: 10px;
+            max-width: 600px;
+            overflow: hidden;
+        }
+
+        .sayi {
+            padding: 10px;
+            border: 1px solid #ccc;
+            background-color: #fff;
+            border-radius: 5px;
+            font-size: 16px;
+            color: #333;
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        #secilenSayilar {
+            margin-top: 20px;
+            margin-bottom: 25px;
+            padding: 10px;
+            max-width: 600px;
+            border: 1px solid #555;
+            background-color: white;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            display: none;
+        }
+
+        .btn-link {
+            margin-top: 15px;
+
+        }
+
+        .btn-link a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .btn-link i {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Soru-1</h1>
+    <span class="title">1'den 99'a kadar olan sayıları for döngüsü ile yan yana</span>
+    <div id="butonlar">
+        <button id="siralaButtonu" onclick="sirala()">Sırala</button>
+        <button id="rastgeleButonu" onclick="rastgeleSayiSec()">
+            Rastgele Sayi Seç
+        </button>
+    </div>
+    <div id="secilenSayilar"></div>
+    <div id="sayilar"></div>
+    <button class="btn-link">
+        <a href="index.html">
+            <i class="fa-solid fa-angle-left"></i>Ana Sayfa
+        </a>
+    </button>
+    <script>
+        let siralandi = false;
+        secilenSayilar = [];
+        function sirala() {
+            let sayilar = document.getElementById("sayilar");
+            sayilar.textContent = "";
+            for (let i = 1; i <= 99; i++) {
+                let span = document.createElement("span");
+                span.innerHTML = i;
+                span.classList = "sayi";
+                sayilar.appendChild(span);
+                // if (i % 10 === 0) {
+                //     sayilar.appendChild(document.createElement("br"));
+                // }
+            }
+            document.getElementById("siralaButtonu").disabled = true;
+            document.getElementById("rastgeleButonu").disabled = false;
+            siralandi = true;
+        }
+
+        function rastgeleSayiSec() {
+            if (!siralandi || secilenSayilar.length >= 10) {
+                return;
+            }
+
+            let sayilar = document.querySelectorAll(".sayi");
+            let rastgeleSayi;
+            do {
+                rastgeleSayi = Math.floor(Math.random() * sayilar.length);
+            } while (secilenSayilar.includes(rastgeleSayi));
+
+            sayilar[rastgeleSayi].style.color = "red";
+            sayilar[rastgeleSayi].style.fontWeight = "bold";
+            secilenSayilar.push(rastgeleSayi);
+
+            let secilenSayilarDiv = document.getElementById("secilenSayilar");
+            let span = document.createElement("span");
+            span.innerHTML = sayilar[rastgeleSayi].innerHTML;
+            span.classList = "sayi";
+            secilenSayilarDiv.appendChild(span);
+            secilenSayilarDiv.style.display = "flex";
+
+            if (secilenSayilar.length === 10) {
+                documen.getElementById("rastgeleButonu").disabled = true;
+            }
+        }
+    </script>
+</body>
+
+</html>
